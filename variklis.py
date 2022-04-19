@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, VARCHAR, Float, DateTime, create
 from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
 
-engine = create_engine('sqlite:///C:/Users/laimi/Desktop/musubiudzetas/duomenys.db')
+engine = create_engine('sqlite:///C:/Users/laimi/Desktop/atsiskaitymas/Atsiskaitymas/duomenys.db')
 base = declarative_base()
 
 class Mainwallet(base):
