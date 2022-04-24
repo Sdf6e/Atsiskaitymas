@@ -8,6 +8,16 @@ from tkinter import messagebox
 engine = create_engine('sqlite:///C:/Users/laimi/Desktop/atsiskaitymas/duomenys.db')
 session = sessionmaker(bind=engine)()
 
+def mwallet_list():
+    filter_all = session.query(Mainwallet).all()
+    for info in filter_all:
+        listwindow.insert(END, info)
+    
+def swallet_list():
+    filter_all = session.query(Savingswallet).all()
+    for info in filter_all:
+        listwindow.insert(END, info)
+
 def savings_wallet():
     loginroot.withdraw()
     root = Toplevel()
@@ -50,16 +60,17 @@ def savings_wallet():
     buttondel = Button(root, text="del", padx=50, pady=25)
     buttondel.grid(row=8, column=1)
 
-    buttonlist = Button(root, text="list", padx=50, pady=25)
+    buttonlist = Button(root, text="list",command=swallet_list, padx=50, pady=25)
     buttonlist.grid(row=9, column=1)
 
     buttonexit = Button(root, text="exit",command=root.destroy, padx=100, pady=25)
     buttonexit.grid(row=10, column=0, columnspan=2)
-
+    global listwindow
     listl = Label(root, text="list")
     listl.grid(row=0, column=2)
     listwindow = Listbox(root, height=20, width=110)
     listwindow.grid(row=1,rowspan=9, column=2)
+    
     
     
 
@@ -70,33 +81,40 @@ def main_wallet():
     root.iconbitmap("C:/Users/laimi/Desktop/atsiskaitymas/Atsiskaitymas/scales.ico")
     aprasasl = Label(root, text="Budget")
     aprasasl.grid(row=0, column=1)
-
+    
     idl = Label(root, text="Id")
-    ide = Entry(root)
+    ide = Entry(root, textvariable=idvar)
+    idvar = ide.get()
     idl.grid(row=1, column=0)
     ide.grid(row=1, column=1)
+    
 
     usel = Label(root, text="Use")
-    usee = Entry(root)
+    usee1 = Entry(root, textvariable=usevar)
+    usevar = usee1.get()
     usel.grid(row=2, column=0)
-    usee.grid(row=2, column=1)
+    usee1.grid(row=2, column=1)
+    usevar = usee1.get()
 
     amountl = Label(root, text="Amount")
-    amounte = Entry(root)
+    amounte1 = Entry(root, textvariable=amountvar)
+    amountvar = amounte1.get()
     amountl.grid(row=3, column=0)
-    amounte.grid(row=3, column=1)
+    amounte1.grid(row=3, column=1)
 
     from_tol = Label(root, text="from / to")
-    from_toe = Entry(root)
+    from_toe1 = Entry(root, textvariable=from_tovar)
+    from_tovar = from_toe1.get()
     from_tol.grid(row=4, column=0)
-    from_toe.grid(row=4, column=1)
+    from_toe1.grid(row=4, column=1)
 
     datel = Label(root, text="date")
-    datee = Entry(root)
+    datee1 = Entry(root, textvariable=datevar)
+    datevar = datee1.get()
     datel.grid(row=5, column=0)
-    datee.grid(row=5, column=1)
+    datee1.grid(row=5, column=1)
 
-    buttonnew = Button(root, text="new", padx=32, pady=25)
+    buttonnew = Button(root, text="new",command=new_mwallet, padx=32, pady=25)
     buttonnew.grid(row=8, column=0)
 
     buttonupdate = Button(root, text="update", padx=25, pady=25)
@@ -105,7 +123,7 @@ def main_wallet():
     buttondel = Button(root, text="del", padx=50, pady=25)
     buttondel.grid(row=8, column=1)
 
-    buttonlist = Button(root, text="list", padx=50, pady=25)
+    buttonlist = Button(root, text="list",command=mwallet_list, padx=50, pady=25)
     buttonlist.grid(row=9, column=1)
 
     buttonexit = Button(root, text="exit",command=root.destroy, padx=100, pady=25)
@@ -116,6 +134,11 @@ def main_wallet():
     listwindow = Listbox(root, height=20, width=110)
     listwindow.grid(row=1,rowspan=9, column=2)
     
+def new_mwallet():
+    global ide 
+    mwallet = Mainwallet()
+    session.add(mwallet)
+    session.commit()
 
 def sw_click():
     savings_wallet()
