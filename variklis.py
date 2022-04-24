@@ -13,11 +13,10 @@ class Mainwallet(base):
     from_to = Column("FROM / TO", VARCHAR)
     date_when = Column("DATE", DateTime, default=datetime.utcnow())
 
-    def __init__(self, use, amount, from_to, date_when):
+    def __init__(self, use, amount, from_to):
         self.use = use
         self.amount = amount
         self.from_to = from_to
-        self.date_when = date_when
 
     def __repr__(self):
         return f'|Mainwallet| {self.id} : {self.use} | {self.amount} | {self.from_to} | {self.date_when}'
@@ -30,11 +29,10 @@ class Savingswallet(base):
     from_to = Column("FROM / TO", VARCHAR)
     date_when = Column("DATE", DateTime, default=datetime.utcnow())
 
-    def __init__(self, use, amount, from_to, date_when):
+    def __init__(self, use, amount, from_to):
         self.use = use
         self.amount = amount
         self.from_to = from_to
-        self.date_when = date_when
 
     def __repr__(self):
         return f'|Savingswallet| {self.id} : {self.use} | {self.amount} | {self.from_to} | {self.date_when}'

@@ -5,18 +5,18 @@ from datetime import datetime
 from tkinter import *
 from tkinter import messagebox
 
-engine = create_engine('sqlite:///C:/Users/laimi/Desktop/atsiskaitymas/duomenys.db')
+engine = create_engine('sqlite:///C:/Users/laimi/Desktop/atsiskaitymas/Atsiskaitymas/duomenys.db')
 session = sessionmaker(bind=engine)()
 
 def mwallet_list():
     filter_all = session.query(Mainwallet).all()
     for info in filter_all:
-        listwindow.insert(END, info)
+        listwindow.insert(info, END)
     
 def swallet_list():
     filter_all = session.query(Savingswallet).all()
     for info in filter_all:
-        listwindow.insert(END, info)
+        listwindow.insert(info, END)
 
 def savings_wallet():
     loginroot.withdraw()
@@ -81,36 +81,45 @@ def main_wallet():
     root.iconbitmap("C:/Users/laimi/Desktop/atsiskaitymas/Atsiskaitymas/scales.ico")
     aprasasl = Label(root, text="Budget")
     aprasasl.grid(row=0, column=1)
-    
+
+    global usevar
+    global usee1
+    global amountvar
+    global amounte1
+    global from_tovar
+    global from_toe1
+
     idl = Label(root, text="Id")
-    ide = Entry(root, textvariable=idvar)
-    idvar = ide.get()
+    ide = Entry(root)
     idl.grid(row=1, column=0)
     ide.grid(row=1, column=1)
     
 
     usel = Label(root, text="Use")
+    usevar = StringVar()
     usee1 = Entry(root, textvariable=usevar)
-    usevar = usee1.get()
+
     usel.grid(row=2, column=0)
     usee1.grid(row=2, column=1)
-    usevar = usee1.get()
+    
 
     amountl = Label(root, text="Amount")
+    amountvar = IntVar()
     amounte1 = Entry(root, textvariable=amountvar)
-    amountvar = amounte1.get()
+
     amountl.grid(row=3, column=0)
     amounte1.grid(row=3, column=1)
 
     from_tol = Label(root, text="from / to")
+    from_tovar = StringVar()
     from_toe1 = Entry(root, textvariable=from_tovar)
-    from_tovar = from_toe1.get()
+
     from_tol.grid(row=4, column=0)
     from_toe1.grid(row=4, column=1)
 
     datel = Label(root, text="date")
-    datee1 = Entry(root, textvariable=datevar)
-    datevar = datee1.get()
+    datee1 = Entry(root)
+    
     datel.grid(row=5, column=0)
     datee1.grid(row=5, column=1)
 
@@ -135,8 +144,10 @@ def main_wallet():
     listwindow.grid(row=1,rowspan=9, column=2)
     
 def new_mwallet():
-    global ide 
-    mwallet = Mainwallet()
+    newuse = usevar.get()
+    newamount = amountvar.get()
+    newfrom_to = from_tovar.get()
+    mwallet = Mainwallet(newuse, newamount, newfrom_to)
     session.add(mwallet)
     session.commit()
 
