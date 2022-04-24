@@ -9,6 +9,7 @@ engine = create_engine('sqlite:///C:/Users/laimi/Desktop/atsiskaitymas/duomenys.
 session = sessionmaker(bind=engine)()
 
 def savings_wallet():
+    loginroot.withdraw()
     root = Toplevel()
     root.title("Savings Wallet")
     root.iconbitmap("C:/Users/laimi/Desktop/atsiskaitymas/Atsiskaitymas/scales.ico")
@@ -52,15 +53,18 @@ def savings_wallet():
     buttonlist = Button(root, text="list", padx=50, pady=25)
     buttonlist.grid(row=9, column=1)
 
-    buttonexit = Button(root, text="exit", padx=100, pady=25)
+    buttonexit = Button(root, text="exit",command=root.destroy, padx=100, pady=25)
     buttonexit.grid(row=10, column=0, columnspan=2)
 
     listl = Label(root, text="list")
     listl.grid(row=0, column=2)
     listwindow = Listbox(root, height=20, width=110)
     listwindow.grid(row=1,rowspan=9, column=2)
+    
+    
 
 def main_wallet():
+    loginroot.withdraw()
     root = Toplevel()
     root.title("Main Wallet")
     root.iconbitmap("C:/Users/laimi/Desktop/atsiskaitymas/Atsiskaitymas/scales.ico")
@@ -104,13 +108,14 @@ def main_wallet():
     buttonlist = Button(root, text="list", padx=50, pady=25)
     buttonlist.grid(row=9, column=1)
 
-    buttonexit = Button(root, text="exit", padx=100, pady=25)
+    buttonexit = Button(root, text="exit",command=root.destroy, padx=100, pady=25)
     buttonexit.grid(row=10, column=0, columnspan=2)
 
     listl = Label(root, text="List")
     listl.grid(row=0, column=2)
     listwindow = Listbox(root, height=20, width=110)
     listwindow.grid(row=1,rowspan=9, column=2)
+    
 
 def sw_click():
     savings_wallet()
@@ -129,13 +134,14 @@ def sign_in():
 
     elif (user=="admin" and code=="1234"):
         messagebox.showinfo("","Signed in Sucessfully")
-        root = Tk()
-        root.title("menu")
-        root.iconbitmap("C:/Users/laimi/Desktop/atsiskaitymas/Atsiskaitymas/scales.ico")
-        root.geometry("400x200")
-        mwbl = Label(root, text="Select your wallet").grid(column=2, row=0)
-        mwb = Button(root, text="Main wallet", padx=40, pady=40, command=mw_click).grid(column=0, row=1)
-        swb = Button(root, text="Savings wallet", padx=40, pady=40, command=sw_click).grid(column=4, row=1)
+        signinroot = Tk()
+        signinroot.title("menu")
+        signinroot.iconbitmap("C:/Users/laimi/Desktop/atsiskaitymas/Atsiskaitymas/scales.ico")
+        signinroot.geometry("400x200")
+        mwbl = Label(signinroot, text="Select your wallet").grid(column=2, row=0)
+        mwb = Button(signinroot, text="Main wallet", padx=40, pady=40, command=mw_click).grid(column=0, row=1)
+        swb = Button(signinroot, text="Savings wallet", padx=40, pady=40, command=sw_click).grid(column=4, row=1)
+        
         
 
 
@@ -162,7 +168,9 @@ def login_screen():
     usernamentry = Entry(loginroot, textvariable=username).grid(column=1, row=0)
     passwordentry = Entry(loginroot, textvariable=password, show="*").grid(column=1, row=1)
     loginbutton = Button(loginroot, text="Sign in", command=sign_in).grid(column=1, row=3, padx=5, pady=5)
+    
 
     loginroot.mainloop()
+    
 
 login_screen()
