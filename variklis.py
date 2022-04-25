@@ -19,7 +19,9 @@ class Mainwallet(base):
 
 
     def __repr__(self):
-        return f'|Mainwallet| {self.id} : {self.use} | {self.amount} | {self.date_when}'
+        return f'|Mainwallet| {self.id} | {self.use} | {self.amount} | {self.date_when}'
+
+
 
 class Savingswallet(base):
     __tablename__ = "Savingswallet"
