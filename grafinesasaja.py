@@ -8,17 +8,8 @@ from tkinter import messagebox
 engine = create_engine('sqlite:///C:/Users/laimi/Desktop/atsiskaitymas/Atsiskaitymas/duomenys.db')
 session = sessionmaker(bind=engine)()
 
-def mwallet_list():
-    filter_all = session.query(Mainwallet).all()
-    for info in filter_all:
-        listwindow.insert(info, END)
-    
-def swallet_list():
-    filter_all = session.query(Savingswallet).all()
-    for info in filter_all:
-        listwindow.insert(info, END)
-
 def savings_wallet():
+    global listwindow
     loginroot.withdraw()
     root = Toplevel()
     root.title("Savings Wallet")
@@ -70,7 +61,6 @@ def savings_wallet():
 
     buttonexit = Button(root, text="exit",command=root.destroy, padx=100, pady=25)
     buttonexit.grid(row=10, column=0, columnspan=2)
-    global listwindow
     listl = Label(root, text="list")
     listl.grid(row=0, column=2)
     listwindow = Listbox(root, height=20, width=110)
@@ -80,6 +70,7 @@ def savings_wallet():
     
 
 def main_wallet():
+    global listwindow
     loginroot.withdraw()
     root = Toplevel()
     root.title("Main Wallet")
@@ -142,6 +133,18 @@ def main_wallet():
     listl.grid(row=0, column=2)
     listwindow = Listbox(root, height=20, width=110)
     listwindow.grid(row=1,rowspan=9, column=2)
+
+def mwallet_list():
+    listwindow.delete(0, END)
+    filter_all = session.query(Mainwallet).all()
+    for info in filter_all:
+        listwindow.insert(END, info)
+    
+def swallet_list():
+    listwindow.delete(0, END)
+    filter_all = session.query(Savingswallet).all()
+    for info in filter_all:
+        listwindow.insert(END, info)
     
 def new_mwallet():
     newuse = usevar.get()
@@ -150,6 +153,9 @@ def new_mwallet():
     mwallet = Mainwallet(newuse, newamount, newdate)
     session.add(mwallet)
     session.commit()
+    listwindow.delete(0, END)
+    msg = "new info has been created in main wallet"
+    listwindow.insert(END, msg)
 
 def new_swallet():
     newuse = susevar.get()
@@ -158,6 +164,9 @@ def new_swallet():
     swallet = Savingswallet(newuse, newamount, newdate)
     session.add(swallet)
     session.commit()
+    listwindow.delete(0, END)
+    msg = "new info has been created in savings wallet"
+    listwindow.insert(END, msg)
 
 def sw_click():
     savings_wallet()
