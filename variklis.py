@@ -10,11 +10,12 @@ class Mainwallet(base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     use = Column("USE", VARCHAR)
     amount = Column("AMOUNT", Float)
-    date_when = Column("DATE", DateTime, default=datetime.utcnow())
+    date_when = Column("DATE", Float)
 
-    def __init__(self, use, amount):
+    def __init__(self, use, amount, date_when):
         self.use = use
         self.amount = amount
+        self.date_when = date_when
 
 
     def __repr__(self):
@@ -25,11 +26,12 @@ class Savingswallet(base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     use = Column("USE", VARCHAR)
     amount = Column("AMOUNT", Float)
-    date_when = Column("DATE", DateTime, default=datetime.utcnow())
+    date_when = Column("DATE", Float)
 
-    def __init__(self, use, amount):
+    def __init__(self, use, amount, date_when):
         self.use = use
         self.amount = amount
+        self.date_when = date_when
 
 
     def __repr__(self):
