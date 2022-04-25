@@ -120,7 +120,7 @@ def main_wallet():
     buttonupdate = Button(root, text="update", padx=25, pady=25)
     buttonupdate.grid(row=9, column=0)
 
-    buttondel = Button(root, text="del", padx=50, pady=25)
+    buttondel = Button(root, text="del",command=mwallet_del, padx=50, pady=25)
     buttondel.grid(row=8, column=1)
 
     buttonlist = Button(root, text="list",command=mwallet_list, padx=50, pady=25)
@@ -135,6 +135,7 @@ def main_wallet():
     listwindow.grid(row=1,rowspan=9, column=2)
 
 def mwallet_list():
+    global filter_all
     listwindow.delete(0, END)
     filter_all = session.query(Mainwallet).all()
     for info in filter_all:
@@ -146,6 +147,19 @@ def swallet_list():
     for info in filter_all:
         listwindow.insert(END, info)
     
+def mwallet_del():
+    select = listwindow.curselection()[0]
+    session.delete(filter_all[select])
+    session.commit()
+    mwallet_list()
+
+def swallet_del():
+    select = listwindow.curselection()[0]
+    session.delete(filter_all[select])
+    session.commit()
+    swallet_list()
+
+
 def new_mwallet():
     newuse = usevar.get()
     newamount = amountvar.get()
