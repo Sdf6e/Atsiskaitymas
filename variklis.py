@@ -37,6 +37,6 @@ class Savingswallet(base):
 
 
     def __repr__(self):
-        return f'|Savingswallet| {self.id} : {self.use} | {self.amount} | {self.date_when}'
+        return f'|Savingswallet| {self.id} | {self.use} | {self.amount} | {self.date_when}'
 
 base.metadata.create_all(engine)
