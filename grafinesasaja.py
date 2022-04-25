@@ -26,32 +26,37 @@ def savings_wallet():
     aprasasl = Label(root, text="Budget")
     aprasasl.grid(row=0, column=1)
 
+    global usee1
+    global susevar
+    global amounte1
+    global samountvar
+    global datee1
+    global sdatevar
+
     idl = Label(root, text="Id")
     ide = Entry(root)
     idl.grid(row=1, column=0)
     ide.grid(row=1, column=1)
 
     usel = Label(root, text="Use")
-    usee = Entry(root)
+    susevar = StringVar()
+    usee1 = Entry(root, textvariable=susevar)
     usel.grid(row=2, column=0)
-    usee.grid(row=2, column=1)
+    usee1.grid(row=2, column=1)
 
     amountl = Label(root, text="Amount")
-    amounte = Entry(root)
+    samountvar = IntVar()
+    amounte1 = Entry(root, textvariable=samountvar)
     amountl.grid(row=3, column=0)
-    amounte.grid(row=3, column=1)
-
-    from_tol = Label(root, text="from / to")
-    from_toe = Entry(root)
-    from_tol.grid(row=4, column=0)
-    from_toe.grid(row=4, column=1)
+    amounte1.grid(row=3, column=1)
 
     datel = Label(root, text="date")
-    datee = Entry(root)
-    datel.grid(row=5, column=0)
-    datee.grid(row=5, column=1)
+    sdatevar = IntVar()
+    datee1 = Entry(root, textvariable=sdatevar)
+    datel.grid(row=4, column=0)
+    datee1.grid(row=4, column=1)
 
-    buttonnew = Button(root, text="new", padx=32, pady=25)
+    buttonnew = Button(root, text="new", command=new_swallet, padx=32, pady=25)
     buttonnew.grid(row=8, column=0)
 
     buttonupdate = Button(root, text="update", padx=25, pady=25)
@@ -86,8 +91,9 @@ def main_wallet():
     global usee1
     global amountvar
     global amounte1
-    global from_tovar
-    global from_toe1
+    global datee1
+    global datevar
+
 
     idl = Label(root, text="Id")
     ide = Entry(root)
@@ -110,15 +116,9 @@ def main_wallet():
     amountl.grid(row=3, column=0)
     amounte1.grid(row=3, column=1)
 
-    from_tol = Label(root, text="from / to")
-    from_tovar = StringVar()
-    from_toe1 = Entry(root, textvariable=from_tovar)
-
-    from_tol.grid(row=4, column=0)
-    from_toe1.grid(row=4, column=1)
-
     datel = Label(root, text="date")
-    datee1 = Entry(root)
+    datevar = IntVar()
+    datee1 = Entry(root, textvariable=datevar)
     
     datel.grid(row=5, column=0)
     datee1.grid(row=5, column=1)
@@ -146,9 +146,17 @@ def main_wallet():
 def new_mwallet():
     newuse = usevar.get()
     newamount = amountvar.get()
-    newfrom_to = from_tovar.get()
-    mwallet = Mainwallet(newuse, newamount, newfrom_to)
+    newdate = datevar.get()
+    mwallet = Mainwallet(newuse, newamount, newdate)
     session.add(mwallet)
+    session.commit()
+
+def new_swallet():
+    newuse = susevar.get()
+    newamount = samountvar.get()
+    newdate = sdatevar.get()
+    swallet = Savingswallet(newuse, newamount, newdate)
+    session.add(swallet)
     session.commit()
 
 def sw_click():
