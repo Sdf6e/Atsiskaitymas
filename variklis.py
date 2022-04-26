@@ -10,7 +10,7 @@ class Mainwallet(base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     use = Column("USE", VARCHAR)
     amount = Column("AMOUNT", Float)
-    date_when = Column("DATE", Float)
+    date_when = Column("DATE", VARCHAR)
 
     def __init__(self, use, amount, date_when):
         self.use = use
@@ -28,7 +28,7 @@ class Savingswallet(base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     use = Column("USE", VARCHAR)
     amount = Column("AMOUNT", Float)
-    date_when = Column("DATE", Float)
+    date_when = Column("DATE", VARCHAR)
 
     def __init__(self, use, amount, date_when):
         self.use = use

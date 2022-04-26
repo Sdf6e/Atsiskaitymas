@@ -42,7 +42,7 @@ def savings_wallet():
     amounte1.grid(row=3, column=1)
 
     datel = Label(root, text="date")
-    sdatevar = IntVar()
+    sdatevar = StringVar()
     datee1 = Entry(root, textvariable=sdatevar)
     datel.grid(row=4, column=0)
     datee1.grid(row=4, column=1)
@@ -108,7 +108,7 @@ def main_wallet():
     amounte1.grid(row=3, column=1)
 
     datel = Label(root, text="date")
-    datevar = IntVar()
+    datevar = StringVar()
     datee1 = Entry(root, textvariable=datevar)
     
     datel.grid(row=5, column=0)
@@ -156,7 +156,8 @@ def mwallet_del():
 
 def swallet_del():
     select = listwindow.curselection()[0]
-    session.delete(filter_all[select])
+    filter_alls = session.query(Savingswallet).all()
+    session.delete(filter_alls[select])
     session.commit()
     swallet_list()
 
