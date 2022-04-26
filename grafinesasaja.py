@@ -50,7 +50,7 @@ def savings_wallet():
     buttonnew = Button(root, text="new", command=new_swallet, padx=32, pady=25)
     buttonnew.grid(row=8, column=0)
 
-    buttonbalance = Button(root, text="balance", padx=25, pady=25)
+    buttonbalance = Button(root, text="balance", command=swallet_balance, padx=25, pady=25)
     buttonbalance.grid(row=9, column=0)
 
     buttondel = Button(root, text="del",command=swallet_del, padx=50, pady=25)
@@ -134,15 +134,6 @@ def main_wallet():
     listwindow = Listbox(root, height=20, width=110)
     listwindow.grid(row=1,rowspan=9, column=2)
 
-def mwallet_balance():
-    liste = []
-    allinfo = session.query(Mainwallet).all()
-    for info in allinfo:
-        liste.append(info)
-    print(liste.split("|"))
-    
-    
-
 
 def mwallet_list():
     global filter_all
@@ -169,6 +160,26 @@ def swallet_del():
     session.commit()
     swallet_list()
 
+def mwallet_balance():
+    filter_all = session.query(Mainwallet).all()
+    suma = 0
+    msg = "Main Wallet Balance : "
+    for wallet_entry in filter_all:
+        suma += wallet_entry.amount
+    listwindow.delete(0, END)
+    listwindow.insert(END, msg)
+    listwindow.insert(END, suma)
+
+def swallet_balance():
+    filter_all = session.query(Savingswallet).all()
+    suma = 0
+    msg = "Main Wallet Balance : "
+    for wallet_entry in filter_all:
+        suma += wallet_entry.amount
+    listwindow.delete(0, END)
+    listwindow.insert(END, msg)
+    listwindow.insert(END, suma)
+        
 
 def new_mwallet():
     newuse = usevar.get()
