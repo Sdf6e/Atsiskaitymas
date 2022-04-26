@@ -1,0 +1,4 @@
+How to use?
+to add a new difference enter all the information asked, and press the button "new" (add amounts .: 10, 100, 500.. | to subtract .: -10, -100..)
+to delete a list, first press the button "list" then select it with your mouse cursor and press button "del".
+eveything else is straight forward.
